@@ -43,8 +43,9 @@ function isLocalDemo(url: URL, baseUrl: string): boolean {
   return url.origin === new URL(baseUrl).origin && /^\/demo-(?:store(?:-fixed)?|restaurant)(?:\/|$)/.test(url.pathname);
 }
 
-async function installReadOnlyGuards(context: BrowserContext, baseUrl: string, demo: boolean): Promise<{ blocked: string[] }> {
+async function installReadOnlyGuards(context: BrowserContext, baseUrl: string, demo: boolean): Promise<{ blocked: string[]; writes: number[] }> {
   const blocked: string[] = [];
+  const writes: number[] = [];
   const publicHosts = new Map<string, boolean>();
   await context.addInitScript(() => {
     document.addEventListener('submit', event => { event.preventDefault(); event.stopImmediatePropagation(); }, true);
@@ -61,7 +62,9 @@ async function installReadOnlyGuards(context: BrowserContext, baseUrl: string, d
       if (!['http:', 'https:'].includes(target.protocol)) return await route.abort('blockedbyclient');
       const ownOrigin = target.origin === new URL(baseUrl).origin;
       if (!['GET', 'HEAD', 'OPTIONS'].includes(request.method())) {
-        blocked.push(`Blocked ${request.method()} request: real-site checks are read-only.`);
+        // Navigations that write stop the run; background writes are aborted and timestamped.
+        if (request.isNavigationRequest()) blocked.push(`Blocked ${request.method()} navigation: real-site checks are read-only.`);
+        else writes.push(Date.now());
         return await route.abort('blockedbyclient');
       }
       if (request.isNavigationRequest() && unsafePath.test(target.pathname)) {
@@ -86,7 +89,7 @@ async function installReadOnlyGuards(context: BrowserContext, baseUrl: string, d
       return await route.continue();
     } catch { return await route.abort('blockedbyclient'); }
   });
-  return { blocked };
+  return { blocked, writes };
 }
 
 async function ensureSafeActivation(page: Page, action: Action, demo: boolean): Promise<string | undefined> {
@@ -161,11 +164,14 @@ async function missingRequiredTarget(page: Page, observation: Observation): Prom
     if (!element) return null;
     const style = getComputedStyle(element);
     if (element.getClientRects().length === 0 || style.display === 'none' || style.visibility === 'hidden') return null;
-    return { tag: element.tagName.toLowerCase(), role: element.getAttribute('role'), name: element.getAttribute('aria-label') || element.textContent?.trim() || '' };
+    const active = document.activeElement;
+    // Only judge once the keyboard user has moved beyond the size picker, so the transcript shows the miss.
+    const passed = Boolean(active && active !== document.body && element.compareDocumentPosition(active) & Node.DOCUMENT_POSITION_FOLLOWING);
+    return { passed };
   });
-  if (!candidate) return undefined;
+  if (!candidate?.passed) return undefined;
   const exposed = observation.nodes.some(node => !node.ignored && interactiveRoles.has(String(node.role?.value)) && /\bmedium\b/i.test(String(node.name?.value)));
-  if (!exposed) return 'Required size Medium exists visually in the DOM but is absent as a named interactive control in the accessibility tree. Keyboard and screen-reader users cannot select it.';
+  if (!exposed) return 'Keyboard focus moved past the size picker without ever reaching size Medium. It exists visually in the DOM but is absent as a named interactive control in the accessibility tree, so keyboard and screen-reader users cannot select it.';
   return undefined;
 }
 
@@ -285,6 +291,7 @@ export async function executeRun(options: EngineOptions): Promise<Run> {
       // A model cannot declare success. Continue reading when its done claim lacks evidence.
       if (action.type === 'done') action = { type: run.journey === 'find_menu' ? 'ArrowDown' : 'Tab', reason: 'Verifying deterministic success evidence.' };
       if (action.type === 'stuck') { run.status = 'stuck'; run.reason = action.reason || 'No accessible action could complete the journey.'; recordStep(options, action, observation); break; }
+      const actionStarted = Date.now();
       const safetyStop = await executeAction(page, announcer, observation, action, demo);
       if (safetyStop) { run.status = 'stuck'; run.reason = safetyStop; recordStep(options, { type: 'stuck', reason: safetyStop }, observation); break; }
       observation = await announcer.observe(run.journey === 'find_menu' && action.type === 'ArrowDown');
@@ -304,6 +311,9 @@ export async function executeRun(options: EngineOptions): Promise<Run> {
         if (heardMenuItems.size >= 5) { run.status = 'passed'; run.reason = `${heardMenuItems.size} distinct menu items with prices were announced from the accessibility tree.`; break; }
       }
       if (guard.blocked.length && run.steps.length >= 3) { run.status = 'stuck'; run.reason = guard.blocked.at(-1); break; }
+      if (!demo && ['Enter', 'Space', 'type'].includes(action.type) && guard.writes.some(time => time >= actionStarted)) {
+        run.status = 'stuck'; run.reason = `The last ${action.type} action tried to send data to the site. Real-site checks are read-only, so the journey stopped there.`; break;
+      }
       const loop = detectFocusLoop(run.steps.slice(-10).map(step => step.focusKey));
       if (loop) { run.status = 'stuck'; run.reason = loop; break; }
     }

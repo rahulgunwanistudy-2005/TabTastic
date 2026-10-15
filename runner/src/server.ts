@@ -144,6 +144,6 @@ export async function buildServer(options:{port?:number;baseUrl?:string}={}) {
  return app;
 }
 if (process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
- const app=await buildServer();await app.listen({port:Number(process.env.PORT ?? 3001),host:'127.0.0.1'});
+ const app=await buildServer();await app.listen({port:Number(process.env.PORT ?? 3001),host:process.env.HOST ?? '127.0.0.1'});
  for(const signal of ['SIGINT','SIGTERM'] as const)process.on(signal,()=>{void app.close().then(()=>process.exit(0));});
 }
