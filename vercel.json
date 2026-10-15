@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci --workspace web --include-workspace-root",
+  "buildCommand": "npm run build -w web",
+  "outputDirectory": "web/dist",
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://journeyproof.onrender.com/api/:path*" },
+    { "source": "/demo-store/:path*", "destination": "https://journeyproof.onrender.com/demo-store/:path*" },
+    { "source": "/demo-store-fixed/:path*", "destination": "https://journeyproof.onrender.com/demo-store-fixed/:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

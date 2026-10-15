@@ -55,6 +55,12 @@ flowchart LR
 - `runner/src/db.ts`: portable normalized schema with text IDs/timestamps and JSON payloads.
 - `web/`: Home, Live Run, Report, Pricing. `demo-store/`: planted barriers and a semantic menu fixture.
 
+## Hosting
+
+- **Render** (`Dockerfile`): one container runs the Fastify runner with Playwright Chromium and serves the built UI and demo store at [journeyproof.onrender.com](https://journeyproof.onrender.com). Set `HOST=0.0.0.0`; optional `ALLOWED_ORIGINS`, `WEB_URL`, model and Stripe test keys go in the service environment.
+- **Vercel** (`vercel.json`): builds `web/` only and proxies `/api`, `/demo-store` and `/demo-store-fixed` to the Render service.
+- The free Render plan sleeps when idle; the first request after a pause takes about a minute. Runs are stored on the container's disk and reset on redeploy.
+
 ## Configuration
 
 Set `LLM_PROVIDER=gemini` and `GEMINI_API_KEY`, or `LLM_PROVIDER=anthropic` and `ANTHROPIC_API_KEY`. `LLM_MODEL` overrides the default fast model (Gemini 3.5 Flash-Lite or Claude Haiku 4.5). Provider access has not been exercised without account keys. Without a key, the transcript explicitly identifies the deterministic keyboard policy. Failed provider requests also identify their fallback. The policy never receives DOM nodes, CSS selectors, screenshots, or pixels.
