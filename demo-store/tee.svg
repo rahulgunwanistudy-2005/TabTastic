@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y2="1"><stop stop-color="#e9e7df"/><stop offset=".6" stop-color="#f0eee7"/><stop offset="1" stop-color="#e6e3da"/></linearGradient>
+    <linearGradient id="cotton" x1="0" x2="1" y1="0" y2=".55"><stop stop-color="#cfc8b8"/><stop offset=".25" stop-color="#e7e1d2"/><stop offset=".52" stop-color="#efe9db"/><stop offset=".8" stop-color="#ddd6c5"/><stop offset="1" stop-color="#c8c0ae"/></linearGradient>
+    <linearGradient id="fold" x1="0" x2="1"><stop stop-color="#c4bba6" stop-opacity="0"/><stop offset=".48" stop-color="#b0a58c" stop-opacity=".2"/><stop offset=".58" stop-color="#fffbec" stop-opacity=".5"/><stop offset="1" stop-color="#b0a58c" stop-opacity="0"/></linearGradient>
+    <linearGradient id="neck" x1="0" x2="0" y2="1"><stop stop-color="#a69d88"/><stop offset="1" stop-color="#ccc3af"/></linearGradient>
+    <filter id="shadow" x="-35%" y="-25%" width="170%" height="160%"><feDropShadow dx="9" dy="21" stdDeviation="18" flood-color="#6a604a" flood-opacity=".18"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .055"/></feComponentTransfer><feBlend in="SourceGraphic" mode="multiply"/></filter>
+    <clipPath id="shirt"><path d="M296 179 244 201 125 276 181 396 252 368 239 690Q395 723 562 690L550 368 621 396 676 276 557 201 504 179Q479 222 400 222T296 179Z"/></clipPath>
+  </defs>
+  <path fill="url(#bg)" d="M0 0h800v900H0z"/>
+  <ellipse cx="414" cy="700" rx="208" ry="30" fill="#7c6e51" opacity=".06"/>
+  <g transform="rotate(-6 400 450)" filter="url(#shadow)">
+    <path d="M296 179 244 201 125 276 181 396 252 368 239 690Q395 723 562 690L550 368 621 396 676 276 557 201 504 179Q479 222 400 222T296 179Z" fill="url(#cotton)"/>
+    <g clip-path="url(#shirt)" filter="url(#grain)">
+      <path d="M278 210q19 224-8 492h49q-32-292-7-485" fill="url(#fold)"/>
+      <path d="M461 219q-13 189 17 490h58q-50-313-38-493" fill="url(#fold)" opacity=".65"/>
+      <path d="m246 210-20 134 29 38-4-125" fill="#c0b69f" opacity=".22"/>
+      <path d="m554 209 20 135-25 37 2-124" fill="#aa9d80" opacity=".17"/>
+      <path d="M311 466q77 25 182-6M298 592q101-19 203 8M327 326q64-14 122 5" fill="none" stroke="#b2a68d" stroke-width="3" opacity=".13"/>
+      <path d="M312 469q77 25 181-6M299 595q101-19 203 8" fill="none" stroke="#fffbed" stroke-width="3" opacity=".45"/>
+      <path d="M241 679q157 32 320 0" fill="none" stroke="#b0a38a" stroke-width="2" opacity=".4"/>
+      <path d="m174 384 72-31m310 0 72 31" fill="none" stroke="#b0a38a" stroke-width="2" opacity=".32"/>
+      <path d="M400 230v467" stroke="#fffbec" opacity=".12" stroke-width="80"/>
+    </g>
+    <path d="M296 179q20 65 104 65t104-65l-19 8q-21 40-85 40t-85-40Z" fill="#c2b8a1"/>
+    <path d="M315 187q22 40 85 40t85-40q-31-14-85-14t-85 14Z" fill="url(#neck)"/>
+    <path d="M300 183q21 56 100 56t100-56" fill="none" stroke="#f3ecdc" stroke-width="7"/>
+    <path d="M300 182q21 60 100 60t100-60" fill="none" stroke="#ada187" opacity=".36"/>
+    <path d="m383 186 35-1 1 19-35 1z" fill="#f3f0e5"/>
+    <path d="m390 191 21-1m-18 5 16-1" stroke="#888471" stroke-width="1.5" opacity=".5"/>
+  </g>
+</svg>

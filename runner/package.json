@@ -1,0 +1,28 @@
+{
+ "name": "@journeyproof/runner",
+ "private": true,
+ "version": "0.1.0",
+ "type": "module",
+ "scripts": {
+  "dev": "tsx watch src/server.ts",
+  "build": "tsc -p tsconfig.json",
+  "start": "node dist/server.js"
+ },
+ "dependencies": {
+  "@axe-core/playwright": "^4.10.2",
+  "@fastify/cors": "^11.1.0",
+  "@fastify/static": "^10.1.6",
+  "@guidepup/virtual-screen-reader": "^0.30.0",
+  "better-sqlite3": "^12.4.1",
+  "diff": "^8.0.2",
+  "dotenv": "^17.2.3",
+  "fastify": "^5.6.1",
+  "p-queue": "^8.1.1",
+  "playwright": "^1.56.0",
+  "stripe": "^19.1.0"
+ },
+ "devDependencies": {
+  "@types/better-sqlite3": "^7.6.13",
+  "@types/diff": "^7.0.2"
+ }
+}

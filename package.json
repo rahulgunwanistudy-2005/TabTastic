@@ -1,0 +1,29 @@
+{
+  "name": "journeyproof",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "workspaces": [
+    "runner",
+    "web"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n runner,web \"npm run dev -w runner\" \"npm run dev -w web\"",
+    "build": "npm run build -w runner && npm run build -w web",
+    "start": "npm run start -w runner",
+    "test": "tsx --test tests/*.test.ts",
+    "test:e2e": "tsx --test tests/e2e.test.ts",
+    "check": "tsc --noEmit -p runner/tsconfig.json && tsc --noEmit -p web/tsconfig.json",
+    "test:clean": "bash scripts/clean-clone-check.sh",
+    "demo:capture": "tsx scripts/capture-demo.ts"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "@types/node": "^22.18.8"
+  }
+}

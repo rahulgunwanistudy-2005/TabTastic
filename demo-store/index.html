@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f2ed">
+  <title>The Essential Tee — Common Ground</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="announcement-bar">Thoughtfully made. Worn on repeat. <span>Free shipping over $75</span></div>
+  <header class="site-header">
+    <a class="wordmark" href="./index.html" aria-label="Common Ground home">common ground<span>®</span></a>
+    <nav aria-label="Main navigation"><a href="#product">Shop</a><a href="#details">Our approach</a><a href="./menu.html">The café</a></nav>
+    <button class="header-bag" type="button" aria-label="Shopping bag" onclick="openCart()">Bag <span data-cart-count>0</span></button>
+  </header>
+  <main>
+    <div class="breadcrumbs"><a href="./index.html">Home</a><span>/</span><a href="#product">The everyday collection</a><span>/</span><span>The Essential Tee</span></div>
+    <section class="product-layout" id="product" aria-labelledby="product-title">
+      <div class="product-visual">
+        <span class="image-note">THE EVERYDAY COLLECTION — 01</span>
+        <img class="product-image" src="./tee.svg" width="800" height="900">
+        <div class="image-bottom"><span>Less, but better.</span><span>01 / 03</span></div>
+        <span class="material-tag"><span class="tiny-dot"></span>100% ORGANIC COTTON</span>
+      </div>
+      <div class="product-info">
+        <div class="eyebrow">A good place to start</div>
+        <h1 id="product-title">The Essential Tee</h1>
+        <div class="price-row"><span class="price">$38.00</span><span class="rating"><span aria-label="5 out of 5 stars">★★★★★</span><span>124 reviews</span></span></div>
+        <p class="product-description">Your everyday, elevated. A considered cut, a softer feel, and just the right weight. Made to feel like an old favorite from day one.</p>
+        <div class="color-picker"><p>Color <strong>Natural</strong></p><span class="color-sample natural" aria-label="Natural, selected"></span><span class="color-sample olive" aria-label="Olive"></span><span class="color-sample ink" aria-label="Ink"></span></div>
+        <div class="size-heading"><p>Size <strong id="selected-size">Select a size</strong></p><a href="#fit-guide">Size guide ↗</a></div>
+        <div class="size-options" aria-describedby="size-help">
+          <div class="size-swatch" data-size="Small" onclick="selectSize('Small', this)"><span aria-hidden="true">S</span></div>
+          <div class="size-swatch" data-size="Medium" onclick="selectSize('Medium', this)"><span aria-hidden="true">M</span></div>
+          <div class="size-swatch" data-size="Large" onclick="selectSize('Large', this)"><span aria-hidden="true">L</span></div>
+          <div class="size-swatch" data-size="Extra large" onclick="selectSize('Extra large', this)"><span aria-hidden="true">XL</span></div>
+        </div>
+        <p class="size-help" id="size-help">A relaxed fit. Take your usual size.</p>
+        <div class="purchase-row"><div class="quantity-note">One very good tee.</div><button class="add-button" type="button" data-add-to-cart onclick="addToCart()"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 7h12l1 13H5L6 7Z" stroke="currentColor" stroke-width="1.5"/><path d="M9 8V6a3 3 0 0 1 6 0v2M9 13h6M12 10v6" stroke="currentColor" stroke-width="1.5"/></svg></button></div>
+        <div id="cart-status" class="cart-status" role="status" aria-live="polite"></div>
+        <div class="shipping-note"><span class="tiny-dot"></span>In stock. Ships in 1–2 business days.</div>
+        <div class="product-promises"><span>↺ &nbsp;30-day easy returns</span><span>◇ &nbsp;Responsibly made</span></div>
+        <details id="details"><summary>The details <span>+</span></summary><p>100% certified organic cotton. Substantial 220 GSM jersey. Pre-washed for a soft, lived-in feel. Designed for every body.</p></details>
+        <details id="fit-guide"><summary>Fit & care <span>+</span></summary><p>Relaxed unisex fit. Medium: chest 40 inches, length 28 inches. Machine wash cold, reshape and air dry.</p></details>
+      </div>
+    </section>
+    <section class="brand-note"><span>GOOD THINGS, EVERY DAY.</span><p>Fewer decisions.<br>More living.</p><span>Pieces to make yourself at home in.</span></section>
+    <section class="newsletter"><div><h2>A little common ground.</h2><p>New essentials, thoughtful stories, and a note now and then.</p></div><form onsubmit="event.preventDefault()"><div class="email-field"><span aria-hidden="true">Your email address</span><input id="newsletter-email" name="email" type="email" autocomplete="email"></div><button type="submit" aria-label="Subscribe to the newsletter">↗</button></form></section>
+  </main>
+  <footer><a class="wordmark" href="./index.html">common ground<span>®</span></a><span>Made for the everyday.</span><span>© 2026 Common Ground</span></footer>
+  <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+  <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title" hidden>
+    <div class="drawer-heading"><h2 id="cart-title">Your bag</h2><button class="drawer-close" type="button" onclick="closeCart()"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6" stroke="currentColor" stroke-width="1.5"/></svg></button></div>
+    <div class="cart-item"><img src="./tee.svg" alt="Natural Essential Tee" width="100" height="120"><div><h3>The Essential Tee</h3><p>Natural / <span id="cart-size">—</span></p><p>$38.00</p></div></div>
+    <p class="cart-drawer-note">A good choice, for the everyday.</p>
+    <div class="cart-total"><span>Subtotal</span><strong id="cart-subtotal">$38.00</strong></div>
+    <p class="checkout-note">Demo bag — no payment is collected.</p>
+    <button class="continue-button" type="button" onclick="closeCart()">Continue shopping</button>
+  </aside>
+  <script src="./script.js"></script>
+</body>
+</html>
