@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState, type FormEvent, type ReactNod
 import { Link, NavLink, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ArrowDown, ArrowDownLeft, ArrowRight, ArrowUpRight, Check, CheckCheck, CheckCircle2, ChevronRight, Circle, CircleAlert, Code2, Download, ExternalLink, FileText, Headphones, Keyboard, Loader2, Menu, Play, Plus, Radio, RotateCcw, ScanLine, ShieldCheck, ShoppingBag, Sparkles, Utensils, Volume2, X } from 'lucide-react';
 import type { Finding, Fix, Journey, Run, Step } from '../../runner/src/types';
+import { useSiteMotion } from './motion';
 
 type FixPreview = { diff: string; fixes: Fix[] };
 const journeyNames: Record<Journey, string> = { add_to_cart: 'Add a product to cart', find_menu: 'Find the restaurant menu' };
@@ -204,4 +205,4 @@ function HashScroll() { const location = useLocation(); useEffect(() => { if (lo
 
 function ReplayNotice({ run }: { run: Run }) { const [source, setSource] = useState<Run | null>(null); useEffect(() => { if (run.parentId) api<Run>(`/api/runs/${run.parentId}`).then(setSource).catch(() => {}); }, [run.parentId]); return <div className="replay-notice"><RotateCcw size={17} /><p><strong>Recorded evidence{source ? ` from ${date(source.createdAt)}` : ''}.</strong> This is a replay of saved actions and announcements, not a fresh website test.</p></div>; }
 
-export default function App() { return <div id="top"><a className="skip-link" href="#main-content">Skip to content</a><Header /><HashScroll /><Routes><Route path="/" element={<Home />} /><Route path="/runs/:id" element={<RunPage />} /><Route path="/reports/:id" element={<ReportPage />} /><Route path="/pricing" element={<PricingPage />} /><Route path="*" element={<NotFound />} /></Routes></div>; }
+export default function App() { useSiteMotion(); return <div id="top"><a className="skip-link" href="#main-content">Skip to content</a><Header /><HashScroll /><Routes><Route path="/" element={<Home />} /><Route path="/runs/:id" element={<RunPage />} /><Route path="/reports/:id" element={<ReportPage />} /><Route path="/pricing" element={<PricingPage />} /><Route path="*" element={<NotFound />} /></Routes></div>; }
