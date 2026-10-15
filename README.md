@@ -77,6 +77,8 @@ The clean-clone script requires a local Git commit. It creates two independent t
 
 With the development app running, `npm run demo:capture` records the actual keyboard-driven UI flow to `output/video/journeyproof-demo.webm`, exports `output/pdf/journeyproof-evidence.pdf`, and saves a JSON replay tape. The clip is silent supporting footage; it is not the final five-minute narrated submission. Add narration and the architecture/business segments using the recording plan.
 
+A captioned five-minute MP4 draft is also available at `output/video/journeyproof-submission-draft.mp4`. See the [draft notes](docs/submission-video.md) and [matching narration](docs/submission-narration.md). The draft uses disclosed synthetic narration and has not been submitted.
+
 Unit tests cover contrast, announcement formatting, focus loops, policy inputs, and strict patch application. The end-to-end gate checks a real browser: broken fails, approvals are enforced, fixed passes, PDF embeds captured screenshots, five menu items are announced, and replay makes no model network request. Browser tests need the ability to launch Chromium and bind a loopback port.
 
 To check keyboard-only execution in the runner:
