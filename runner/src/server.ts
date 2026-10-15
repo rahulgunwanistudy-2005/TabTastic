@@ -33,9 +33,12 @@ export async function buildServer(options:{port?:number;baseUrl?:string}={}) {
  const port=options.port ?? Number(process.env.PORT ?? 3001);
  const baseUrl=options.baseUrl ?? `http://127.0.0.1:${port}`;
  await Promise.all([fs.mkdir(artifactDir,{recursive:true}),fs.mkdir(path.join(dataDir,'tapes'),{recursive:true}),fs.mkdir(path.join(root,'demo-store-fixed'),{recursive:true})]);
- await app.register(cors,{origin:[`http://localhost:5173`,`http://127.0.0.1:5173`,`http://localhost:${port}`,baseUrl]});
+ const allowedOrigins=[`http://localhost:5173`,`http://127.0.0.1:5173`,`http://localhost:${port}`,baseUrl,...(process.env.ALLOWED_ORIGINS ?? '').split(',').map(origin=>origin.trim()).filter(Boolean)];
+ // Hosted deployments: requests from the page's own host, or a listed frontend origin, may write.
+ const originAllowed=(origin:string,host?:string)=>allowedOrigins.includes(origin) || (()=>{ try { return Boolean(host) && new URL(origin).host===host; } catch { return false; } })();
+ await app.register(cors,{origin:allowedOrigins});
  app.addHook('onRequest',async(req,reply)=>{
-  if (!['GET','HEAD','OPTIONS'].includes(req.method) && req.headers.origin && ![`http://localhost:5173`,`http://127.0.0.1:5173`,`http://localhost:${port}`,baseUrl].includes(req.headers.origin)) return reply.code(403).send({message:'Origin is not allowed.'});
+  if (!['GET','HEAD','OPTIONS'].includes(req.method) && req.headers.origin && !originAllowed(req.headers.origin,req.headers.host) && !originAllowed(req.headers.origin,String(req.headers['x-forwarded-host'] ?? '').split(',')[0].trim() || undefined)) return reply.code(403).send({message:'Origin is not allowed.'});
  });
  await app.register(staticFiles,{root:path.join(root,'demo-store'),prefix:'/demo-store/'});
  await app.register(staticFiles,{root:path.join(root,'demo-store-fixed'),prefix:'/demo-store-fixed/',decorateReply:false});
