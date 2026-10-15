@@ -35,9 +35,9 @@ try {
  await page.locator('.comparison-grid').scrollIntoViewIfNeeded();await page.waitForTimeout(2500);
  const report=await context.request.get(`${origin}/api/runs/${fixedId}/report.pdf`);
  if(!report.ok())throw new Error('Evidence PDF failed to export.');
- await fs.writeFile('output/pdf/journeyproof-evidence.pdf',await report.body());
+ await fs.writeFile('output/pdf/tabtastic-evidence.pdf',await report.body());
  const tape=await context.request.get(`${origin}/api/runs/${fixedId}/tape`);
- await fs.writeFile('output/journeyproof-replay.json',await tape.body());
+ await fs.writeFile('output/tabtastic-replay.json',await tape.body());
  await page.setViewportSize({width:390,height:844});
  await page.screenshot({path:'output/qa/report-mobile.png',fullPage:true});
  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth);
@@ -57,6 +57,6 @@ try {
  console.log(JSON.stringify(manifest));
 } finally {
  const video=page.video();await context.close();
- if(video){const videoPath=await video.path();await fs.rename(videoPath,path.resolve('output/video/journeyproof-demo.webm'));}
+ if(video){const videoPath=await video.path();await fs.rename(videoPath,path.resolve('output/video/tabtastic-demo.webm'));}
  await browser.close();
 }

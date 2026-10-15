@@ -5,7 +5,10 @@ import { dataDir } from './paths.js';
 import type { Run } from './types.js';
 
 fs.mkdirSync(dataDir, { recursive: true });
-export const db = new Database(path.join(dataDir, 'journeyproof.sqlite'));
+// Keep run history from before the rename if only the legacy database exists.
+const legacyDb = path.join(dataDir, 'journeyproof.sqlite');
+const dbPath = path.join(dataDir, 'tabtastic.sqlite');
+export const db = new Database(!fs.existsSync(dbPath) && fs.existsSync(legacyDb) ? legacyDb : dbPath);
 db.pragma('journal_mode = WAL');
 db.pragma('foreign_keys = ON');
 // Portable SQL: IDs and timestamps are text; payloads can migrate to JSONB.

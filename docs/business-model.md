@@ -1,6 +1,8 @@
-# Journeyproof: proposed business model
+# TabTastic: proposed business model
 
-Journeyproof sells evidence that a specific customer journey works: try the task through accessibility information, show where it stops, review a source fix, and re-test the same task. Start with small fashion stores and restaurants, where an owner can understand the outcome in one demonstration: an item reaches the bag, or five dishes and prices can be read.
+**Find the block. Fix the flow !!**
+
+TabTastic sells evidence that a specific customer journey works: try the task through accessibility information, show where it stops, review a source fix, and re-test the same task. Start with small fashion stores and restaurants, where an owner can understand the outcome in one demonstration: an item reaches the bag, or five dishes and prices can be read.
 
 ## Proposed pricing and distribution
 

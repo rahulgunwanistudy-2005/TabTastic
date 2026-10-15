@@ -1,4 +1,6 @@
-# Journeyproof submission narration
+# TabTastic submission narration
+
+Tagline: **Find the block. Fix the flow !!**
 
 Exactly 5:00. Ten fixed sections, using actual app footage and clearly labeled architecture and business boards. The finished video uses synthetic Mac narration. Proposed pricing, replay, deterministic action policy, and pending live account verification must remain labeled on screen. Invented cost budgets and margins are omitted from this video.
 
@@ -6,7 +8,7 @@ This script describes the implemented prototype and observed results recorded in
 
 ## 0:00–0:25 · A visible product can still be unreachable
 
-A customer can see a product and still be unable to buy it. WebAIM found detectable accessibility failures on ninety-five point nine percent of the million home pages it analyzed in twenty twenty-six. Journeyproof asks a practical question: can a customer complete the journey using a keyboard and accessibility information?
+A customer can see a product and still be unable to buy it. WebAIM found detectable accessibility failures on ninety-five point nine percent of the million home pages it analyzed in twenty twenty-six. TabTastic asks a practical question: can a customer complete the journey using a keyboard and accessibility information?
 
 ## 0:25–0:55 · Watch the journey stop
 
@@ -34,15 +36,15 @@ TypeScript connects React to a Node and Fastify server, isolated Playwright brow
 
 ## 3:35–4:15 · Make the proposed business model concrete
 
-Journeyproof starts with small stores and restaurants, where a blocked task has an obvious cost: a customer cannot choose a size or read the menu. Proposed monthly pricing is a free check, thirty-nine dollars for restaurants, forty-nine for stores, and two hundred ninety-nine for agencies. These prices are hypotheses; no customers or revenue are claimed. A free check would make the barrier visible, and reviewed repairs plus repeat evidence would support conversion. Stripe test Checkout is implemented, but the account key is absent. This setup message leaves billing verification pending and activates no plan.
+TabTastic starts with small stores and restaurants, where a blocked task has an obvious cost: a customer cannot choose a size or read the menu. Proposed monthly pricing is a free check, thirty-nine dollars for restaurants, forty-nine for stores, and two hundred ninety-nine for agencies. These prices are hypotheses; no customers or revenue are claimed. A free check would make the barrier visible, and reviewed repairs plus repeat evidence would support conversion. Stripe test Checkout is implemented, but the account key is absent. This setup message leaves billing verification pending and activates no plan.
 
 ## 4:15–4:45 · Validate costs and separate the roadmap
 
-Before selling the forty-nine-dollar Store plan, Journeyproof must measure browser runtime, model retries, support, and processing costs, then validate usage limits. The roadmap adds isolated workers, Postgres, authenticated accounts, scheduled checks, and reviewed customer-source integrations. These are planned features. The current prototype runs checks on demand and repairs its owned demo.
+Before selling the forty-nine-dollar Store plan, TabTastic must measure browser runtime, model retries, support, and processing costs, then validate usage limits. The roadmap adds isolated workers, Postgres, authenticated accounts, scheduled checks, and reviewed customer-source integrations. These are planned features. The current prototype runs checks on demand and repairs its owned demo.
 
 ## 4:45–5:00 · Close on the demonstrated loop
 
-Journeyproof turns a silent dead end into a tested path forward. Try the journey, find the barrier, review the source repair, and repeat the task with dated evidence. Thank you.
+TabTastic turns a silent dead end into a tested path forward. Try the journey, find the barrier, review the source repair, and repeat the task with dated evidence. Thank you.
 
 ## Editing and claim checks
 

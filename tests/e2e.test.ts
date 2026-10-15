@@ -6,7 +6,7 @@ import path from 'node:path';
 import type { Run } from '../runner/src/types.js';
 
 test('owned store fails, approved source repair passes, evidence exports and replay works offline', {timeout:120000}, async()=>{
- const temp=await mkdtemp(path.join(os.tmpdir(),'journeyproof-e2e-'));
+ const temp=await mkdtemp(path.join(os.tmpdir(),'tabtastic-e2e-'));
  process.env.DATA_DIR=temp;process.env.NODE_ENV='test';process.env.LLM_PROVIDER='';
  delete process.env.GEMINI_API_KEY;delete process.env.ANTHROPIC_API_KEY;
  const {buildServer}=await import('../runner/src/server.js');

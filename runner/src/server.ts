@@ -80,7 +80,7 @@ export async function buildServer(options:{port?:number;baseUrl?:string}={}) {
  });
  app.get<{Params:{id:string}}>('/api/runs/:id/tape',async(req,reply)=>{
   const run=resolveRun(req.params.id);if(!run)return reply.code(404).send({message:'Run not found.'});
-  return reply.header('Content-Disposition',`attachment; filename="journeyproof-${run.id}.json"`).send({version:1,run});
+  return reply.header('Content-Disposition',`attachment; filename="tabtastic-${run.id}.json"`).send({version:1,run});
  });
  const demoRun=(run:Run)=>run.mode==='live' && run.url.startsWith(`${baseUrl}/demo-store/`);
  app.get<{Params:{id:string}}>('/api/runs/:id/fixes',async(req,reply)=>{
@@ -119,7 +119,7 @@ export async function buildServer(options:{port?:number;baseUrl?:string}={}) {
   const before=run.parentId && run.mode==='live' ? resolveRun(run.parentId) : undefined;
   const html=await renderReport(run,before);
   if(format==='html')return reply.type('text/html').send(html);
-  return reply.type('application/pdf').header('Content-Disposition',`attachment; filename="journeyproof-${run.id}.pdf"`).send(await reportPdf(html));
+  return reply.type('application/pdf').header('Content-Disposition',`attachment; filename="tabtastic-${run.id}.pdf"`).send(await reportPdf(html));
  });
  app.post<{Body:{plan?:string}}>('/api/checkout',async(req,reply)=>{
   const plan=req.body?.plan;const prices:Record<string,number>={restaurant:3900,store:4900,agency:29900};
@@ -127,7 +127,7 @@ export async function buildServer(options:{port?:number;baseUrl?:string}={}) {
   const key=process.env.STRIPE_SECRET_KEY;
   if(!key?.startsWith('sk_test_'))return reply.code(503).send({message:'Stripe test checkout is not configured. Add STRIPE_SECRET_KEY=sk_test_… to .env to try the test subscription.'});
   const stripe=new Stripe(key);const web=process.env.WEB_URL ?? 'http://localhost:5173';
-  const session=await stripe.checkout.sessions.create({mode:'subscription',payment_method_types:['card'],line_items:[{price_data:{currency:'usd',unit_amount:prices[plan],recurring:{interval:'month'},product_data:{name:`Journeyproof ${plan}`}},quantity:1}],success_url:`${web}/pricing?session_id={CHECKOUT_SESSION_ID}`,cancel_url:`${web}/pricing?cancelled=1`,metadata:{app:'journeyproof',plan}});
+  const session=await stripe.checkout.sessions.create({mode:'subscription',payment_method_types:['card'],line_items:[{price_data:{currency:'usd',unit_amount:prices[plan],recurring:{interval:'month'},product_data:{name:`TabTastic ${plan}`}},quantity:1}],success_url:`${web}/pricing?session_id={CHECKOUT_SESSION_ID}`,cancel_url:`${web}/pricing?cancelled=1`,metadata:{app:'tabtastic',plan}});
   db.prepare('INSERT INTO billing_sessions VALUES (?,?,0,?)').run(session.id,plan,new Date().toISOString());return {url:session.url};
  });
  app.get<{Querystring:{session_id?:string}}>('/api/billing/session',async(req,reply)=>{

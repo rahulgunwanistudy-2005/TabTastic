@@ -50,8 +50,8 @@ async function installReadOnlyGuards(context: BrowserContext, baseUrl: string, d
   await context.addInitScript(() => {
     document.addEventListener('submit', event => { event.preventDefault(); event.stopImmediatePropagation(); }, true);
     // Guard programmatic submissions as well as keyboard-triggered ones.
-    HTMLFormElement.prototype.submit = function () { throw new Error('Journeyproof blocks form submission.'); };
-    HTMLFormElement.prototype.requestSubmit = function () { throw new Error('Journeyproof blocks form submission.'); };
+    HTMLFormElement.prototype.submit = function () { throw new Error('TabTastic blocks form submission.'); };
+    HTMLFormElement.prototype.requestSubmit = function () { throw new Error('TabTastic blocks form submission.'); };
     window.open = () => null;
     Object.defineProperty(navigator, 'sendBeacon', { value: () => false, configurable: true });
   });
@@ -213,8 +213,8 @@ async function diagnose(page: Page, announcer: Announcer, observation: Observati
     const scope = await page.evaluate(() => {
       const target = document.querySelector('[data-size="Medium"], [data-size="medium"]') || document.activeElement;
       const region = target?.closest('main,article,section,[role="dialog"]') || document.querySelector('main') || document.body;
-      region?.setAttribute('data-journeyproof-diagnosis', 'true');
-      return '[data-journeyproof-diagnosis="true"]';
+      region?.setAttribute('data-tabtastic-diagnosis', 'true');
+      return '[data-tabtastic-diagnosis="true"]';
     });
     const result = await new AxeBuilder({ page }).include(scope).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
     for (const violation of result.violations) {

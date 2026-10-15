@@ -1,5 +1,5 @@
 /**
- * Journeyproof motion layer: Lenis smooth scroll, header hide/solid states, line-split heading
+ * TabTastic motion layer: Lenis smooth scroll, header hide/solid states, line-split heading
  * reveals with the green sweep, and staggered card reveals. All values live in MOTION below.
  * Reduced motion: native scroll, no reveals, no sweep.
  */

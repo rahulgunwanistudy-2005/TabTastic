@@ -1,4 +1,6 @@
-# Journeyproof
+# TabTastic
+
+**Find the block. Fix the flow !!**
 
 Try the journey. Find the barrier. Fix the source. Prove the journey works.
 
@@ -15,7 +17,7 @@ cp .env.example .env
 npm run dev
 ```
 
-Open [Journeyproof](http://localhost:5173). The UI uses port 5173 and proxies to the runner on port 3001. No model or payment key is needed for the deterministic demo. `npm run build && npm start` serves the built UI and backend together on [port 3001](http://127.0.0.1:3001); set `WEB_URL` to that origin if using Stripe in this mode.
+Open [TabTastic](http://localhost:5173). The UI uses port 5173 and proxies to the runner on port 3001. No model or payment key is needed for the deterministic demo. `npm run build && npm start` serves the built UI and backend together on [port 3001](http://127.0.0.1:3001); set `WEB_URL` to that origin if using Stripe in this mode.
 
 1. Choose **Run the demo**. The broken store stops at mouse-only sizes.
 2. Review the findings and exact diff. Approve the proposed control names and image description.
@@ -81,9 +83,9 @@ bash scripts/clean-clone-check.sh
 
 The clean-clone script requires a local Git commit. It creates two independent temporary clones, installs the lockfile, builds each, and runs the end-to-end gate. It removes both clones on exit.
 
-With the development app running, `npm run demo:capture` records the actual keyboard-driven UI flow to `output/video/journeyproof-demo.webm`, exports `output/pdf/journeyproof-evidence.pdf`, and saves a JSON replay tape. The clip is silent supporting footage; it is not the final five-minute narrated submission. Add narration and the architecture/business segments using the recording plan.
+With the development app running, `npm run demo:capture` records the actual keyboard-driven UI flow to `output/video/tabtastic-demo.webm`, exports `output/pdf/tabtastic-evidence.pdf`, and saves a JSON replay tape. The clip is silent supporting footage; it is not the final five-minute narrated submission. Add narration and the architecture/business segments using the recording plan.
 
-A captioned five-minute MP4 draft is also available at `output/video/journeyproof-submission-draft.mp4`. See the [draft notes](docs/submission-video.md) and [matching narration](docs/submission-narration.md). The draft uses disclosed synthetic narration and has not been submitted.
+A captioned five-minute MP4 draft is also available at `output/video/journeyproof-submission-draft.mp4` (recorded before the TabTastic rename). See the [draft notes](docs/submission-video.md) and [matching narration](docs/submission-narration.md). The draft uses disclosed synthetic narration and has not been submitted.
 
 Unit tests cover contrast, announcement formatting, focus loops, policy inputs, and strict patch application. The end-to-end gate checks a real browser: broken fails, approvals are enforced, fixed passes, PDF embeds captured screenshots, five menu items are announced, and replay makes no model network request. Browser tests need the ability to launch Chromium and bind a loopback port.
 

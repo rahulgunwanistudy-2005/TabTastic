@@ -1,4 +1,4 @@
-# Journeyproof: runner (Fastify + Playwright Chromium) serving the built web UI and demo store.
+# TabTastic: runner (Fastify + Playwright Chromium) serving the built web UI and demo store.
 FROM node:22-bookworm-slim
 
 WORKDIR /app

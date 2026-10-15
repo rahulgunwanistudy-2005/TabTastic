@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 project_root="$(cd "$(dirname "$0")/.." && pwd)"
-scratch_root="$(mktemp -d /tmp/journeyproof-clean.XXXXXX)"
+scratch_root="$(mktemp -d /tmp/tabtastic-clean.XXXXXX)"
 trap 'rm -rf "$scratch_root"' EXIT
 for iteration in 1 2; do
   target_dir="$scratch_root/run-$iteration"
